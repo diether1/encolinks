@@ -10,8 +10,11 @@ app.config.from_pyfile('settings.py')
 # SQLAlchemy
 db = SQLAlchemy(app)
 from encolinks.models import Link
-db.create_all()
-db.session.commit()
+try:
+    db.create_all()
+    db.session.commit()
+except:
+    pass
 
 # Flask Bootstrap
 Bootstrap(app)

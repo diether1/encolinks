@@ -21,7 +21,7 @@ def create_link(url):
 
 def get_cod_from_url(url):
     result = url
-    m = re.match(r'http://[^/]+/(\w{6})/', url)
+    m = re.match(r'http[s]?://[^/]+/(\w{6})/', url)
     if m:
         result = m.group(1)
     return result
