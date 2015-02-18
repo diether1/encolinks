@@ -1,5 +1,22 @@
 $(document).ready(function(){
+
+    $('#result').hide();
+
     var makeShrink = function() {
+
+        var validateInput = true;
+        if($('.url-input').val() == ""){
+            $('.url-input').parent().removeClass("has-success");
+            $('.url-input').parent().addClass('has-feedback has-error');
+            $('.url-input').parent().find('span').addClass('glyphicon-remove');
+            return;
+        }else{
+            $('.url-input').parent().removeClass("has-error");
+            $('.url-input').parent().find('span').removeClass('glyphicon-remove');
+            $('.url-input').parent().addClass('has-feedback has-success');
+            $('.url-input').parent().find('span').addClass('glyphicon-ok');
+        }
+
         var txtToShrink = $('input[name="url"]')
         $.post('/api/shrink/',
             {url: txtToShrink.val()},
@@ -8,11 +25,12 @@ $(document).ready(function(){
                 $('#result').html(
 					"<input class='form-control' type='text' value='" + data.url + "'>"
 				);
+                $('#result').fadeIn();
             }
         );
         return false;
     };
-    $('#shrink').bind('click', makeShrink);
+    $('#shrink').on('click', makeShrink);
     
     var getLinkInfo = function() {
         var txtToInfo = $('input[name="url"]')
